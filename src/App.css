@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+}
+body {
+  background-color: red;
+  color: #000;
+  font-family: "Source Sans Pro", sans-serif;
+}
+.no-scroll {
+  overflow: hidden;
+}
