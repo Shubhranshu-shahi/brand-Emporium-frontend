@@ -4,7 +4,7 @@ import { Eye, X } from "lucide-react";
 
 import { currentDate, currentDateAndTime } from "../assets/helper/Helpers";
 import { customerByPhone, customerInsert } from "../assets/helper/customerApi";
-import { invoiceInsert } from "../assets/helper/InvoiceApi";
+import { invoiceInsert } from "../assets/helper/invoiceApi";
 import { productById, productInsert } from "../assets/helper/productApi";
 
 import TotalSummaryCard from "./TotalSummaryCard";

@@ -23,7 +23,7 @@ import {
 import {
   fetchInvoicesByInvoiceNumbers,
   invoiceDelete,
-} from "../assets/helper/InvoiceApi";
+} from "../assets/helper/invoiceApi";
 import { useNavigate } from "react-router-dom";
 import { dateToString } from "../assets/helper/Helpers";
 

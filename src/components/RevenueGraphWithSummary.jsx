@@ -12,7 +12,7 @@ import {
 } from "chart.js";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
-import { getAllInvoice } from "../assets/helper/InvoiceApi";
+import { getAllInvoice } from "../assets/helper/invoiceApi";
 import { format, parseISO } from "date-fns";
 
 ChartJS.register(

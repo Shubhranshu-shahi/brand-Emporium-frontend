@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { invoiceGenrate, updateInvoice } from "../assets/helper/InvoiceApi";
+import { invoiceGenrate, updateInvoice } from "../assets/helper/invoiceApi";
 
 import CustomerDetails from "./CustomerDetails";
 import InvoiceDetails from "./InvoiceDetails";

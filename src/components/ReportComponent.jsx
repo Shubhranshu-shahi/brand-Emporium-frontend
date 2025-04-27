@@ -23,7 +23,7 @@ import {
   ChevronsRight,
   Search,
 } from "lucide-react";
-import { getAllInvoice, invoiceDelete } from "../assets/helper/InvoiceApi";
+import { getAllInvoice, invoiceDelete } from "../assets/helper/invoiceApi";
 import { dateToString } from "../assets/helper/Helpers";
 import { handleSuccess } from "../assets/helper/utils";
 import { useNavigate } from "react-router-dom";
