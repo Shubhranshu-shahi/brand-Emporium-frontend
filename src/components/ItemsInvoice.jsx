@@ -24,7 +24,7 @@ import {
   fetchInvoicesByInvoiceNumbers,
   invoiceDelete,
   SearchInvoiceByProductId,
-} from "../assets/helper/invoiceApi";
+} from "../assets/helper/InvoiceApi";
 import { useNavigate } from "react-router-dom";
 import { dateToString } from "../assets/helper/Helpers";
 import { handleSuccess } from "../assets/helper/utils";
