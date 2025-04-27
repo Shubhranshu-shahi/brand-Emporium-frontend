@@ -11,7 +11,6 @@ export const invoiceInsert = async (invoiceData) => {
       },
     });
     const { data } = res;
-
     if (data.success) {
       handleSuccess(data.message);
       return data;
