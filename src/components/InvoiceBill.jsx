@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { numberToWords } from "../assets/helper/Helpers";
-import { invoiceGenrate } from "../assets/helper/InvoiceApi";
+import { invoiceGenrate } from "../assets/helper/invoiceApi";
 import logo from "../img/logo.jpeg";
 import sign from "../img/sign.jpeg";
 import instaScnan from "../img/instaScan.jpg";
