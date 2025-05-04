@@ -1,7 +1,7 @@
 import React from "react";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import { currentDate, dateToString } from "../assets/helper/Helpers";
+import { currentDate, dateToString } from "../assets/api/Helpers";
 
 function ReportGST({ invoices, title, flag }) {
   const exportGSTItemsToExcel = async (invoices = [], exportFlag) => {

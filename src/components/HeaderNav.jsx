@@ -11,7 +11,7 @@ import {
 import logo from "../img/logo.jpeg";
 import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { handleSuccess } from "../assets/helper/utils";
+import { handleSuccess } from "../assets/api/utils";
 import admin from "../img/admin.jpg";
 import user2 from "../img/user2.jpeg";
 

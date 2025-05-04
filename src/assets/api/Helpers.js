@@ -34,9 +34,6 @@ export function dateToString(dateData) {
   var dd = String(date.getDate()).padStart(2, "0");
   var mm = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
   var yyyy = date.getFullYear();
-  // var hour = String(date.getHours()).padStart(2, "0");
-  // var min = String(date.getMinutes()).padStart(2, "0");
-  // var sec = String(date.getSeconds()).padStart(2, "0");
 
   const inString = dd + "/" + mm + "/" + yyyy;
   return inString;

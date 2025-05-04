@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import HeaderNav from "./HeaderNav";
 import SideNavTest from "./SideNav";
 import axios from "axios";
-import { privacyVerf } from "../assets/helper/PrivacyVerfication";
+import { privacyVerf } from "../assets/api/PrivacyVerfication";
 import { useNavigate } from "react-router-dom";
-import { handleError, handleSuccess } from "../assets/helper/utils";
+import { handleError, handleSuccess } from "../assets/api/utils";
 import { FullPageLoader } from "./FullPageLoader";
 import { Eye, EyeOff } from "lucide-react";
 

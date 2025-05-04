@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { Eye, X } from "lucide-react";
 
-import { currentDate, currentDateAndTime } from "../assets/helper/Helpers";
-import { customerByPhone, customerInsert } from "../assets/helper/customerApi";
-import { invoiceInsert } from "../assets/helper/InvoiceApi";
-import { productById, productInsert } from "../assets/helper/productApi";
+import { currentDate, currentDateAndTime } from "../assets/api/Helpers";
+import { customerByPhone, customerInsert } from "../assets/api/customerApi";
+import { invoiceInsert } from "../assets/api/InvoiceApi";
+import { productById, productInsert } from "../assets/api/productApi";
 
 import TotalSummaryCard from "./TotalSummaryCard";
 import CustomerDetails from "./CustomerDetails";
@@ -60,9 +60,8 @@ function SalesFormMain() {
   const [remaining, setRemaining] = useState(0);
   const [type, setType] = useState("Online");
 
-  const totalAmount = rows.reduce(
-    (sum, row) => sum + (parseFloat(row.sellingPrice) || 0),
-    0
+  const totalAmount = parseFloat(
+    rows.reduce((sum, row) => sum + (parseFloat(row.sellingPrice) || 0), 0)
   );
 
   useEffect(() => {
@@ -153,7 +152,7 @@ function SalesFormMain() {
         },
         rows,
         totalDetails: {
-          total: totalAmount,
+          total: Number(parseFloat(totalAmount).toFixed(2)),
           roundOff,
           receive,
           remaining,

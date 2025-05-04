@@ -24,7 +24,7 @@ function TotalSummaryCard({
           <input
             type="number"
             readOnly
-            value={totalAmount}
+            value={totalAmount.toFixed(2)}
             className="w-full sm:w-40 p-2 border border-gray-600 bg-gray-700 text-white rounded text-right"
           />
         </div>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { customerByPhone, customerInsert } from "../assets/helper/customerApi";
-import { handleError } from "../assets/helper/utils";
+import { customerByPhone, customerInsert } from "../assets/api/customerApi";
+import { handleError } from "../assets/api/utils";
 
 export const AddPartyModal = ({ isOpen, onClose, onSave }) => {
   const {

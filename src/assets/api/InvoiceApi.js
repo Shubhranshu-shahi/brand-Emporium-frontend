@@ -102,3 +102,60 @@ export const updateInvoice = async (id, data) => {
     return null;
   }
 };
+
+export const fetchAggregatedData = async ({ startDate, endDate, groupBy }) => {
+  const url = `${BASE_URL}/api/aggregated-invoice-data`;
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ startDate, endDate, groupBy }),
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching aggregated data:", error);
+    throw error;
+  }
+};
+
+export const invoiceStats = async (params) => {
+  // console.log(filters);
+  try {
+    const response = await axios.get(`${BASE_URL}/api/summary`, {
+      params,
+    });
+    return response.data;
+  } catch (err) {
+    console.error("Error fetching aggregated data:", err);
+    throw err;
+  }
+};
+
+export const fetchReport = async (params) => {
+  try {
+    const response = await axios.get(`${base_url}invoice/reports/invoices`, {
+      params,
+    });
+    return response.data;
+  } catch (err) {
+    console.error("Error fetching aggregated data:", err);
+    throw err;
+  }
+};
+
+export const invoiceExport = async (params) => {
+  try {
+    const response = await axios.get(`${base_url}invoice/api/exports`, {
+      params,
+      responseType: "blob",
+    });
+    return response.data;
+  } catch (err) {
+    console.error("Error fetching aggregated data:", err);
+    throw err;
+  }
+};

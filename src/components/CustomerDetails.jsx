@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { handleError } from "../assets/helper/utils";
+import { handleError } from "../assets/api/utils";
 
 function CustomerDetails({
   customer,

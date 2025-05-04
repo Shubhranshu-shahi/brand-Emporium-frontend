@@ -1,5 +1,5 @@
 import React from "react";
-import { customerByPhone } from "../assets/helper/customerApi";
+import { customerByPhone } from "../assets/api/customerApi";
 
 function CustomerDetailsForm({ customerAndInvoice, setCustomerAndInvoice }) {
   //check get customer by number

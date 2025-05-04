@@ -23,9 +23,9 @@ import {
 import {
   fetchInvoicesByInvoiceNumbers,
   invoiceDelete,
-} from "../assets/helper/InvoiceApi";
+} from "../assets/api/InvoiceApi";
 import { useNavigate } from "react-router-dom";
-import { dateToString } from "../assets/helper/Helpers";
+import { dateToString } from "../assets/api/Helpers";
 
 const columnHelper = createColumnHelper();
 

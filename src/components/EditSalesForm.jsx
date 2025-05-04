@@ -1,12 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { invoiceGenrate, updateInvoice } from "../assets/helper/InvoiceApi";
+import { invoiceGenrate, updateInvoice } from "../assets/api/InvoiceApi";
 
 import CustomerDetails from "./CustomerDetails";
 import InvoiceDetails from "./InvoiceDetails";
 import ProductTable from "./ProductTable";
 import TotalSummaryCard from "./TotalSummaryCard";
-import { productById } from "../assets/helper/productApi";
+import { productById } from "../assets/api/productApi";
 
 export default function EditSalesForm({ invoiceNumber }) {
   const navigate = useNavigate();
@@ -25,9 +25,8 @@ export default function EditSalesForm({ invoiceNumber }) {
     customerName: false,
   });
 
-  const totalAmount = rows.reduce(
-    (sum, row) => sum + (parseFloat(row.sellingPrice) || 0),
-    0
+  const totalAmount = parseFloat(
+    rows.reduce((sum, row) => sum + (parseFloat(row.sellingPrice) || 0), 0)
   );
 
   const searchByidProduct = async (itemCode) => {
@@ -95,7 +94,7 @@ export default function EditSalesForm({ invoiceNumber }) {
       },
       rows: sanitizedRows,
       totalDetails: {
-        total: totalAmount,
+        total: Number(parseFloat(totalAmount).toFixed(2)),
         roundOff,
         receive,
         remaining,

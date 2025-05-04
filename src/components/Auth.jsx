@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeClosed, CheckCircle, EyeOff } from "lucide-react";
-import { handleError, handleSuccess } from "../assets/helper/utils";
-import { sendOtp, verifyOtp } from "../assets/helper/otp";
-import { login, signup, updatePass, userExites } from "../assets/helper/login";
+import { handleError, handleSuccess } from "../assets/api/utils";
+import { sendOtp, verifyOtp } from "../assets/api/otp";
+import { login, signup, updatePass, userExites } from "../assets/api/login";
 import { FullPageLoader } from "./FullPageLoader";
 
 const Auth = () => {

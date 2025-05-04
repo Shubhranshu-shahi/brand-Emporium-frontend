@@ -18,7 +18,7 @@ export const login = async (authvals) => {
         },
       }
     );
-    console.log("login res", res);
+
     return res.data;
   } catch (err) {
     const message =
@@ -47,7 +47,6 @@ export const signup = async (authvals) => {
 };
 export const updatePass = async (user) => {
   try {
-    console.log("options", user);
     const url = `${BASE_URL}/update-password`;
     const res = await axios.post(url, user, {
       headers: {

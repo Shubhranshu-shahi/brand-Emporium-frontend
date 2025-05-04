@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { Pencil, PlusCircleIcon, PlusCircle, X } from "lucide-react";
 
-import { getAllProduct, productDelete } from "../assets/helper/productApi";
+import { getAllProduct, productDelete } from "../assets/api/productApi";
 
 const ItemsInvoice = lazy(() => import("././ItemsInvoice"));
 

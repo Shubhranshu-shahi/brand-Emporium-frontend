@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import BarcodeImage from "./BarcodeImage";
-import { productInsert } from "../assets/helper/productApi";
-import { genrateBarcode } from "../assets/helper/Helpers";
-import { categoryInsert, getAllCategory } from "../assets/helper/category";
-import { handleError, handleSuccess } from "../assets/helper/utils";
+import { productInsert } from "../assets/api/productApi";
+import { genrateBarcode } from "../assets/api/Helpers";
+import { categoryInsert, getAllCategory } from "../assets/api/category";
+import { handleError, handleSuccess } from "../assets/api/utils";
 
 const BarcodeModal = ({ itemCode, isOpen, onClose }) => {
   if (!isOpen) return null;

@@ -7,10 +7,10 @@ import {
   getAllProduct,
   productInsert,
   productUpdate,
-} from "../assets/helper/productApi";
-import { handleError, handleSuccess } from "../assets/helper/utils";
-import { genrateBarcode } from "../assets/helper/Helpers";
-import { categoryInsert, getAllCategory } from "../assets/helper/category";
+} from "../assets/api/productApi";
+import { handleError, handleSuccess } from "../assets/api/utils";
+import { genrateBarcode } from "../assets/api/Helpers";
+import { categoryInsert, getAllCategory } from "../assets/api/category";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const BarcodeModal = ({ itemCode, isOpen, onClose }) => {

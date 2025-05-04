@@ -11,9 +11,9 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Pencil, X } from "lucide-react";
 
-import { customerDelete, getAllCustomer } from "../assets/helper/customerApi";
+import { customerDelete, getAllCustomer } from "../assets/api/customerApi";
 import { EditPartyModal } from "./EditPartyModal";
-import { handleSuccess } from "../assets/helper/utils";
+import { handleSuccess } from "../assets/api/utils";
 import { AddPartyModal } from "./AddPartyModal";
 
 const PartiesInvoice = lazy(() => import("./PartiesInvoice"));

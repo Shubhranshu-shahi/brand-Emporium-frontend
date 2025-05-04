@@ -1,18 +1,13 @@
 import React from "react";
-
-import ReportComponent from "../../components/ReportComponent";
-
 import Layout from "../../components/Layout";
 import InvoiceReport from "../../components/InvoiceReport";
 
-function Reports() {
+function InvoiceTest() {
   return (
     <Layout>
-      <div className="p-4">
-        <InvoiceReport />
-      </div>
+      <InvoiceReport />
     </Layout>
   );
 }
 
-export default Reports;
+export default InvoiceTest;

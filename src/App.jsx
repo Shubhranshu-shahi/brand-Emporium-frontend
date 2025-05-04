@@ -20,6 +20,7 @@ import Invoice from "./assets/pages/Invoice";
 
 import EditSales from "./assets/pages/EditSales";
 import EditItems from "./assets/pages/EditItems";
+import InvoiceTest from "./assets/pages/InvoiceTest";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,6 +37,7 @@ function App() {
 
       <Routes>
         <Route path="/login" element={<AuthPage />} />
+        <Route path="/test" element={<InvoiceTest />} />
 
         <Route path="/" element={<Navigate to="/login" />} />
         <Route
