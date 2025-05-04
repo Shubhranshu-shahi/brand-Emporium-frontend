@@ -227,14 +227,16 @@ const RevenueGraphWithSummary = () => {
           {showSummary ? "Hide Summary" : "Show Summary"}
         </button>
       </div>
-      <DateRangeGroupBySelector
-        groupBy={groupBy}
-        startDate={startDate}
-        endDate={endDate}
-        setStartDate={setStartDate}
-        setEndDate={setEndDate}
-        handleGroupByChange={handleGroupByChange}
-      />
+      <div className="bg-white p-4 rounded shadow mb-4">
+        <DateRangeGroupBySelector
+          groupBy={groupBy}
+          startDate={startDate}
+          endDate={endDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          handleGroupByChange={handleGroupByChange}
+        />
+      </div>
 
       {loading ? (
         <motion.div

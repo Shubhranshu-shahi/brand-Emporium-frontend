@@ -114,35 +114,41 @@ export default function Layout({ children }) {
           transition={{ duration: 0.3 }}
           className="fixed inset-0 z-50 bg-black bg-opacity-100 flex justify-center items-center"
         >
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              className=" border text-white rounded-lg mr-2 p-2"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-3 flex items-center text-gray-300 hover:text-white"
-            >
-              {showPassword ? <Eye /> : <EyeOff />}
-            </button>
+          <div className="flex flex-col items-center gap-4 p-4 bg-white/10 rounded-lg">
+            {/* Password Input */}
+            <div className="relative w-64">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className="w-full border text-white bg-black/40 placeholder-gray-300 rounded-lg pr-10 pl-4 py-2"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-3 flex items-center text-gray-300 hover:text-white"
+              >
+                {showPassword ? <Eye /> : <EyeOff />}
+              </button>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
+              <button
+                onClick={privercyVefication}
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md w-40"
+              >
+                Show Content
+              </button>
+              <button
+                onClick={signOutHandler}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md w-40"
+              >
+                Log Out
+              </button>
+            </div>
           </div>
-          <button
-            onClick={privercyVefication}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md"
-          >
-            {" "}
-            Show Content
-          </button>
-          <button
-            onClick={signOutHandler}
-            className="bg-red-500 hover:bg-red-600 text-white m-2 px-4 py-2 rounded-lg shadow-md"
-          >
-            log out
-          </button>
         </motion.div>
       )}
 
