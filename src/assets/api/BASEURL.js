@@ -1,1 +1,1 @@
-export const base_url = "http://localhost:8080/";
+export const base_url = "https://brand-emporium-backend.onrender.com/";
