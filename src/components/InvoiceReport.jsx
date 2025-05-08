@@ -419,7 +419,8 @@ const InvoiceReport = () => {
                         onClick={() =>
                           window.open(
                             `/invoice/${invoice.customerAndInvoice.invoiceNumber}`,
-                            "_blank"
+                            "_blank",
+                            "noopener,noreferrer"
                           )
                         }
                         className="text-blue-600 hover:underline"
