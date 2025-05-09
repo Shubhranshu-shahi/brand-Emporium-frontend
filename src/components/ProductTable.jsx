@@ -26,6 +26,14 @@ function ProductTable({
   };
   useEffect(() => {
     if (nonGst) {
+      setOriginalTaxValues(
+        rows.map((row) => ({
+          itemCode: row.itemCode,
+          taxSale: row.taxSale,
+          taxAmount: row.taxAmount,
+          salePrice: row.salePrice,
+        }))
+      );
       setRows((prevRows) =>
         prevRows.map((row) => ({
           ...row,
@@ -34,9 +42,24 @@ function ProductTable({
           salePrice: row.sellingPrice,
         }))
       );
+      console.log(originalTaxValues);
     } else {
+      console.log("hello");
+      console.log(originalTaxValues);
       setRows((prevRows) =>
         prevRows.map((row) => {
+          const original = originalTaxValues.find(
+            (r) => r.itemCode === row.itemCode
+          );
+          if (original) {
+            return {
+              ...row,
+              taxSale: original.taxSale,
+              taxAmount: original.taxAmount,
+              salePrice: original.salePrice,
+            };
+          }
+
           const taxSale = parseFloat(row.taxSale) || 0;
           const taxAmount = parseFloat(row.sellingPrice) * (taxSale / 100);
           return {
