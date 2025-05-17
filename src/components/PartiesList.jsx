@@ -15,6 +15,9 @@ import { customerDelete, getAllCustomer } from "../assets/api/customerApi";
 import { EditPartyModal } from "./EditPartyModal";
 import { handleSuccess } from "../assets/api/utils";
 import { AddPartyModal } from "./AddPartyModal";
+import { FaWhatsapp } from "react-icons/fa";
+import { AddWaStock } from "./AddWaStock";
+import { sendStockUpdatesNum } from "../assets/api/WhatsAppApi";
 
 const PartiesInvoice = lazy(() => import("./PartiesInvoice"));
 
@@ -23,11 +26,15 @@ function PartiesList() {
   const [selectedCustomer, SetSelectedCustomer] = useState({});
   const [customers, setCustomers] = useState([]);
   const [sorting, setSorting] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
 
   const [selectedRowId, setSelectedRowId] = useState("");
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [addPartyModalOpen, setAddPartyModalOpen] = useState(false);
+  const [addWAModalOpen, setaddWAModalOpen] = useState(false);
   const [editPartyData, setEditPartyData] = useState(null);
+  const [waBrandAndoff, setWaBrandAndoff] = useState({});
+  const [waStockData, setWaStockData] = useState({});
   // const [customerInvoices, setCustomerInvoices] = useState({});
 
   const [addPartyData, setAddPartyData] = useState({
@@ -45,6 +52,73 @@ function PartiesList() {
   });
 
   const columns = [
+    {
+      id: "select",
+      header: ({ table }) => {
+        const allVisibleRows = table
+          .getFilteredRowModel()
+          .rows.map((row) => row.original);
+        const allSelected = allVisibleRows.every((row) =>
+          selectedRows.some((selected) => selected.id === row.id)
+        );
+
+        return (
+          <input
+            type="checkbox"
+            checked={allSelected}
+            onChange={(e) => {
+              const isChecked = e.target.checked;
+              if (isChecked) {
+                // Add only new visible rows (only phone and id)
+                const newSelected = [
+                  ...selectedRows,
+                  ...allVisibleRows
+                    .filter(
+                      (row) =>
+                        !selectedRows.some((selected) => selected.id === row.id)
+                    )
+                    .map((row) => ({ id: row.id, phone: row.phone })),
+                ];
+                setSelectedRows(newSelected);
+              } else {
+                // Remove all visible rows
+                const newSelected = selectedRows.filter(
+                  (selected) =>
+                    !allVisibleRows.some((row) => row.id === selected.id)
+                );
+                setSelectedRows(newSelected);
+              }
+            }}
+          />
+        );
+      },
+      cell: ({ row }) => {
+        const rowId = row.original.id;
+        const isChecked = selectedRows.some((r) => r.id === rowId);
+
+        return (
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={(e) => {
+              const isChecked = e.target.checked;
+              const rowData = row.original;
+
+              setSelectedRows((prev) => {
+                if (isChecked) {
+                  // Add only id and phone
+                  return [...prev, { id: rowData.id, phone: rowData.phone }];
+                } else {
+                  // Remove by id
+                  return prev.filter((r) => r.id !== rowData.id);
+                }
+              });
+            }}
+            onClick={(e) => e.stopPropagation()}
+          />
+        );
+      },
+    },
     {
       accessorKey: "name",
       header: "Party Name",
@@ -181,6 +255,23 @@ function PartiesList() {
     setSelectedRowId(rowData.id);
   };
 
+  const handleStockUpdate = async () => {
+    console.log("Stock Update", selectedRows);
+    if (selectedRows.length != 0) {
+      setaddWAModalOpen(true);
+    }
+  };
+
+  const handleWaStock = async (data) => {
+    console.log(data);
+    const stockPayload = {
+      data,
+      selectedRows,
+    };
+    setWaStockData(stockPayload);
+    sendStockUpdatesNum(stockPayload);
+  };
+
   return (
     <div className="w-full max-w-full mx-auto px-4 py-6">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -202,6 +293,14 @@ function PartiesList() {
             >
               + Add Party
             </button>
+            <button
+              className="w-full mb-4 px-4 py-3 text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded-xl shadow-md transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+              onClick={handleStockUpdate}
+            >
+              <FaWhatsapp className="w-5 h-5" />
+              <span>Stock Update</span>
+            </button>
+
             <input
               type="text"
               placeholder="Search parties..."
@@ -320,6 +419,13 @@ function PartiesList() {
         onClose={() => setAddPartyModalOpen(false)}
         onSave={handleSaveadd}
         party={addPartyData}
+      />
+      <AddWaStock
+        isOpen={addWAModalOpen}
+        onClose={() => setaddWAModalOpen(false)}
+        onSave={handleWaStock}
+        waBrandAndoff={waBrandAndoff}
+        setWaBrandAndoff={setWaBrandAndoff}
       />
     </div>
   );

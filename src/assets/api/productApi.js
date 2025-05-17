@@ -75,3 +75,15 @@ export const productUpdate = async (id, productData) => {
     handleError(error?.response?.data?.message);
   }
 };
+
+export const productGet = async () => {
+  try {
+    const response = await axios.get(`${base_url}invoice/reports/invoices`, {
+      params,
+    });
+    return response.data;
+  } catch (err) {
+    console.error("Error fetching aggregated data:", err);
+    throw err;
+  }
+}

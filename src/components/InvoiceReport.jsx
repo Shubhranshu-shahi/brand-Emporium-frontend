@@ -11,6 +11,7 @@ import {
   ChevronsRight,
   Search,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import {
   fetchReport,
@@ -21,6 +22,8 @@ import {
 import { currentDate, dateToString } from "../assets/api/Helpers";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { sendInvoiceUsingWA } from "../assets/api/WhatsAppApi";
+import { handleSuccess } from "../assets/api/utils";
 
 const InvoiceReport = () => {
   const [data, setData] = useState([]);
@@ -229,6 +232,24 @@ const InvoiceReport = () => {
     navigate(`/edit-invoice/${row.customerAndInvoice.invoiceNumber}`);
   };
 
+  //handle to send invoice on whatsapp
+  const handleWhatsapp = async (row) => {
+    const params = {
+      invoiceId: row.customerAndInvoice.invoiceNumber,
+      customerName: row.customerAndInvoice.customerName,
+      customerPhone: row.customerAndInvoice.phone,
+    };
+
+    try {
+      const res = await sendInvoiceUsingWA(params);
+
+      if (res.success) {
+        handleSuccess("Invoice sent successfully to WhatsApp");
+      }
+    } catch (err) {
+      console.error("Error sending invoice via WhatsApp:", err);
+    }
+  };
   // Fetch data on filter change
   useEffect(() => {
     const fetchAll = async () => {
@@ -415,6 +436,13 @@ const InvoiceReport = () => {
 
                   <td className="px-4 py-2 border-t text-sm text-gray-800">
                     <div className="flex gap-3">
+                      <button
+                        onClick={() => handleWhatsapp(invoice)}
+                        className="text-blue-600 hover:underline"
+                        title="whatsapp"
+                      >
+                        <FaWhatsapp className="text-green-500 w-6 h-6" />
+                      </button>
                       <button
                         onClick={() =>
                           window.open(

@@ -11,6 +11,7 @@ import TotalSummaryCard from "./TotalSummaryCard";
 import CustomerDetails from "./CustomerDetails";
 import InvoiceDetails from "./InvoiceDetails";
 import ProductTable from "./ProductTable";
+import { sendInvoiceUsingWA } from "../assets/api/WhatsAppApi";
 
 function SalesFormMain() {
   const navigate = useNavigate();
@@ -162,8 +163,14 @@ function SalesFormMain() {
 
       // Step 5: Insert invoice
       const invoiceData = await invoiceInsert(formData);
-
+      let params = {
+        invoiceId: customerAndInvoice.invoiceNumber,
+        customerPhone: customerAndInvoice.phone,
+        customerName: customerAndInvoice.customerName,
+      };
       if (invoiceData) {
+        sendInvoiceUsingWA(params);
+
         navigate(`/invoice/${customerAndInvoice.invoiceNumber}`, {
           state: { id: customerAndInvoice.invoiceNumber },
         });
@@ -253,7 +260,12 @@ function SalesFormMain() {
         </div>
 
         <div className="flex justify-end mt-4 space-x-2">
-          {/* <button className="bg-blue-500 px-4 py-2 rounded text-white">
+          {/* <button
+            className="bg-blue-500 px-4 py-2 rounded text-white"
+            onClick={(e) => {
+              shareHandler();
+            }}
+          >
             Share
           </button> */}
           <button
