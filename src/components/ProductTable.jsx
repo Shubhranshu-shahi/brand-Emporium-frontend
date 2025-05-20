@@ -1,5 +1,6 @@
 import { ChevronDown, Eye, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { searchProductsByName } from "../assets/api/productApi";
 
 function ProductTable({
   rows,
@@ -11,6 +12,9 @@ function ProductTable({
   const [expandedRow, setExpandedRow] = useState(false);
   const [products, setProducts] = useState([]);
   const [originalTaxValues, setOriginalTaxValues] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
   const generateProductId = () => {
     const timestamp = Date.now().toString().slice(-6);
     const randomNum = Math.floor(10000 + Math.random() * 90000);
@@ -42,10 +46,10 @@ function ProductTable({
           salePrice: row.sellingPrice,
         }))
       );
-      console.log(originalTaxValues);
+      // console.log(originalTaxValues);
     } else {
-      console.log("hello");
-      console.log(originalTaxValues);
+      // console.log("hello");
+      // console.log(originalTaxValues);
       setRows((prevRows) =>
         prevRows.map((row) => {
           const original = originalTaxValues.find(
@@ -77,7 +81,12 @@ function ProductTable({
       let row = { ...newRows[index] };
       row[key] = value;
       newRows[index] = row;
-
+      // if (key === "itemName") {
+      //   setSearchQuery(value);
+      //   searchProductsByName(value).then((result) => {
+      //     setSuggestions(result);
+      //   });
+      // }
       if (key === "itemCode" && value.trim() !== "" && value.length >= 12) {
         const existingIndex = newRows.findIndex(
           (r, i) => r.itemCode === value && i !== index
@@ -268,6 +277,62 @@ function ProductTable({
     }
   };
 
+  const handleSuggestionClick = (index, product) => {
+    const updatedRows = [...rows];
+
+    const existingRowIndex = updatedRows.findIndex(
+      (row, i) => i !== index && row.itemCode === product.itemCode
+    );
+
+    if (existingRowIndex !== -1) {
+      //  Product already exists — increase quantity and recalculate
+      const existingRow = updatedRows[existingRowIndex];
+      const updatedQty = parseFloat(existingRow.qty || "0") + 1;
+
+      updatedRows[existingRowIndex] = {
+        ...existingRow,
+        qty: updatedQty.toString(),
+      };
+
+      updateRowCalculations(updatedRows, existingRowIndex, "qty");
+
+      //  Remove the current empty/searching row
+      updatedRows.splice(index, 1);
+    } else {
+      //  Insert new product into current row
+      const filledRow = createNewRowData(updatedRows[index], product);
+      updatedRows[index] = {
+        ...filledRow,
+        qty: "1",
+        searchQuery: "",
+        suggestions: [],
+      };
+
+      updateRowCalculations(updatedRows, index, "qty");
+    }
+
+    setRows(updatedRows);
+  };
+
+  const handleItemNameSearch = (index, value) => {
+    const updatedRows = [...rows];
+    updatedRows[index].itemName = value;
+    updatedRows[index].searchQuery = value;
+    setRows(updatedRows);
+
+    // Debounced search
+    if (value.length > 1) {
+      searchProductsByName(value).then((suggestions) => {
+        const updated = [...rows];
+        updated[index].suggestions = suggestions;
+        setRows(updated);
+      });
+    } else {
+      updatedRows[index].suggestions = [];
+      setRows(updatedRows);
+    }
+  };
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
       <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-200">
@@ -326,14 +391,29 @@ function ProductTable({
                     ref={lastInputRef}
                   />
                 </td>
-                <td className="px-4 py-3 border">
+                <td className="relative px-4 py-3 border">
                   <input
                     className="min-w-full p-2 border rounded-lg"
+                    // className="w-full bg-transparent border-none outline-none"
                     value={row.itemName}
                     onChange={(e) =>
-                      handleInputChange(index, "itemName", e.target.value)
+                      handleItemNameSearch(index, e.target.value)
                     }
+                    placeholder="Search by name"
                   />
+                  {row.suggestions?.length > 0 && (
+                    <ul className="absolute z-10 w-full max-h-48 overflow-y-auto bg-white border rounded shadow top-full left-0">
+                      {row.suggestions.map((product, idx) => (
+                        <li
+                          key={idx}
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                          onClick={() => handleSuggestionClick(index, product)}
+                        >
+                          <div className="font-medium">{product.itemName}</div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </td>
                 <td className="px-4 py-3 border">
                   <input

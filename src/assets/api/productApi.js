@@ -86,4 +86,18 @@ export const productGet = async () => {
     console.error("Error fetching aggregated data:", err);
     throw err;
   }
-}
+};
+
+export const searchProductsByName = async (name) => {
+  if (!name.trim()) return [];
+  try {
+    const url = `${BASE_URl}/prod/search`;
+    const res = await axios.get(url, {
+      params: { name },
+    });
+    return res.data.products;
+  } catch (err) {
+    console.error("Search error:", err.message);
+    return [];
+  }
+};

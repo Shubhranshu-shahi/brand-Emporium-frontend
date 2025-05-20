@@ -40,6 +40,8 @@ function SalesFormMain() {
       purchasedPrice: "",
       discountAmount: "",
       purchasedWithQty: "",
+      searchQuery: "",
+      suggestions: [],
     },
   ]);
 
